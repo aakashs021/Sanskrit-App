@@ -1,14 +1,26 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:http/http.dart' as http;
 import 'package:sanskrit_app/screens/home_page/home_page_channel.dart';
 import 'package:sanskrit_app/screens/second_page/second_page.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 const url1 = "https://chat.whatsapp.com/FPdvkOCA9JhDcYR9cfzNvH";
 const url2 = "https://ig.me/j/AbYlpwxdBHkzjweC/";
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+const porturl = "https://gsdpcr3h-3000.inc1.devtunnels.ms/";
+
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  TextEditingController cont = TextEditingController();
+  String ddd = '';
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +41,7 @@ class HomePage extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  Get.to(()=> SecondPage());
+                  Get.to(() => SecondPage());
                 },
                 child: ListTile(
                   trailing: Icon(Icons.chevron_right_sharp),
@@ -37,7 +49,33 @@ class HomePage extends StatelessWidget {
                 ),
               );
             },
-          )
+          ),
+          TextField(
+            controller: cont,
+          ),
+          ElevatedButton(
+              onPressed: () async {
+                try {
+                  final res = await http.get(Uri.parse('${porturl}get'));
+                  var a = jsonDecode(res.body);
+                  print(a);
+                } catch (e) {
+                  print(e);
+                }
+              },
+              child: Text('data')),
+          ElevatedButton(
+              onPressed: () async {
+                final res = await http.post(Uri.parse('${porturl}post'),
+                    headers: {"Content-Type": "application/json"},
+                    body: jsonEncode(["newstring"]));
+                if (res.statusCode == 200) {
+                  var na = jsonDecode(res.body);
+                  print(na);
+                }
+              },
+              child: Text('show')),
+          Text(ddd)
         ],
       )),
     );

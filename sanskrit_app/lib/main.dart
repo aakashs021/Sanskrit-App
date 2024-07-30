@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:sanskrit_app/screens/home_page/home.dart';
 import 'package:sanskrit_app/screens/splash_page/splash.dart';
 
 void main(List<String> args) {

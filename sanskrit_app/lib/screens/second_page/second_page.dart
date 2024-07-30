@@ -43,8 +43,9 @@ bottompagerise(BuildContext context, double height) {
       return Container(
         decoration: const BoxDecoration(
             color: Colors.red,
-            borderRadius: BorderRadius.horizontal(
-                left: Radius.circular(20), right: Radius.circular(20))),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)
+                // left: Radius.circular(20), right: Radius.circular(20)
+                )),
         height: height * 0.3,
         child: Table(
           children: const [
